@@ -50,7 +50,8 @@ export async function parseEpub(file: File): Promise<Book> {
   for (const ref of elements(doc, 'itemref')) {
     const item = manifest.get(ref.getAttribute('idref'))
     if (!item || ref.getAttribute('linear') === 'no') continue
-    const chapter = await read(item.path)
+    const chapterPath = item.path
+    const chapter = await read(chapterPath)
     const body = elements(chapter, 'body')[0]
     if (!body) continue
     const title = links.find(l => l.target.split('#')[0] === item.path)?.title || body.querySelector('h1,h2,h3,h4')?.textContent?.trim() || '第 ' + (chapters.length + 1) + ' 章'
@@ -70,12 +71,12 @@ export async function parseEpub(file: File): Promise<Book> {
       const own = heading.test(name) || name === 'blockquote' || name === 'p'
       const boundary = own || grouping.test(name)
       if (boundary) flush(tag)
-      if (node.id) targets.set(item.path + '#' + node.id, blocks.length)
+      if (node.id) targets.set(chapterPath + '#' + node.id, blocks.length)
       const next = tag === 'blockquote' && name === 'p' ? tag : own ? name as Tag : tag
       if (name === 'br') { buffer += '\n'; return }
       if (name === 'img' || name === 'image') {
         flush(tag)
-        const src = resolve(item!.path, node.getAttribute('src') || node.getAttribute('href') || node.getAttribute('xlink:href') || '')
+        const src = resolve(chapterPath, node.getAttribute('src') || node.getAttribute('href') || node.getAttribute('xlink:href') || '')
         const entry = src && zip.file(src)
         if (entry) {
           const mime = items.find(i => i.path === src)?.mime || 'image/png'
@@ -84,7 +85,7 @@ export async function parseEpub(file: File): Promise<Book> {
             const probe = new Image()
             probe.src = data
             try { await probe.decode(); images[src] = { src: data, width: probe.naturalWidth, height: probe.naturalHeight } }
-            catch { /* 图片损坏时保留替代文本 */ }
+            catch { buffer += node.getAttribute('alt') || ''; return }
           }
           if (images[src]) { blocks.push({ tag: 'img', image: src, text: node.getAttribute('alt') || '', chapter: title }); return }
         }
