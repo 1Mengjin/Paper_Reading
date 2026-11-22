@@ -12,7 +12,7 @@ try {
     if (await fetch(origin).then(r=>r.ok).catch(()=>false)) break
     await delay(200)
   }
-  browser = await chromium.launch()
+  browser = await chromium.launch({channel:process.env.PAPERPOCKET_BROWSER || undefined})
   const page = await browser.newPage()
   const errors=[], external=[]
   page.on('pageerror',e=>errors.push(String(e)))

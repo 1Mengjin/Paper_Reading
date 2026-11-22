@@ -4,7 +4,13 @@ permissions:
   contents: read
 jobs:
   verify:
-    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      PAPERPOCKET_BROWSER: chrome
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -13,10 +19,10 @@ jobs:
           node-version: 22
       - run: npm install --no-audit --no-fund
       - run: npm run build
-      - run: npx playwright install --with-deps chromium
       - run: npm test
       - run: node tests/production.mjs
       - uses: actions/upload-artifact@v4
+        if: runner.os == 'Windows'
         with:
           name: PaperPocket-offline
           path: |
