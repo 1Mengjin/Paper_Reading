@@ -5,7 +5,7 @@ export function metrics(viewWidth = document.documentElement.clientWidth, viewHe
   const width = Math.floor(Math.min(1240, viewWidth - (spread === 2 ? 72 : 24)) / spread)
   return { width, height: Math.min(920, viewHeight - (viewHeight < 480 ? 92 : 146)), spread }
 }
-export const layoutKey = (m: Metrics, size: number) => [3, m.width, m.height, size].join('/')
+export const layoutKey = (m: Metrics, size: number) => [4, m.width, m.height, window.innerWidth, window.innerHeight, size].join('/')
 export function makePart(book: Book, part: Part) {
   const block = book.blocks[part.block]
   const el = document.createElement(block.tag)
@@ -62,6 +62,7 @@ export async function paginate(book: Book, m: Metrics, size: number, signal?: Ab
         const part = { block, from, to: length }
         const el = makePart(book, part)
         body.append(el)
+        if (el instanceof HTMLImageElement) await el.decode()
         if (fits(el)) { parts.push(part); break }
         if (parts.length) { finish(); continue }
         if (source.tag === 'img') throw new Error('页面空间不足以容纳插图')

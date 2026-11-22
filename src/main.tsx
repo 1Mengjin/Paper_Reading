@@ -1,2 +1,6 @@
+import { createRoot } from 'react-dom/client'
+import { App } from './App'
+import './app.css'
 import './paper.css'
-document.title = 'PaperPocket'
+
+createRoot(document.getElementById('root')!).render(<App />)
