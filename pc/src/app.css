@@ -1,0 +1,960 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",Inter,system-ui,sans-serif;
+  font-synthesis:none;
+  background:#3b2d22;
+  color:#2f2a22;
+  -webkit-font-smoothing:antialiased;
+}
+body{margin:0}
+button,select,input{font:inherit}
+button,select{cursor:pointer}
+button:disabled{cursor:default;opacity:.42}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #b55f3c;outline-offset:3px}
+
+/* ==========================================================================
+   Theme Tokens — Paper, Wood, Linen & Reading-Lamp Palette
+   ========================================================================== */
+.app{
+  --paper:#F6F0E4;
+  --paper-soft:#EFE7D8;
+  --ink:#2f2a22;
+  --desk:#e6dccb;
+  --desk-bg:radial-gradient(ellipse at 50% 18%,#f1e9db 0%,#e5dac7 52%,#d4c5ae 100%);
+  --mast-bg:rgba(243,236,223,.82);
+  --line:#cbbca4;
+  --line-soft:rgba(130,104,72,.22);
+  --accent:#3f5741;
+  --accent-ink:#f6f0e4;
+  --seal:#a24834;
+  --muted:#6d6152;
+  --ledge-top:#bea487;
+  --ledge-front:#93775a;
+  --ledge-deep:#6f563e;
+  --board:#584534;
+  --board-edge:#3a2d21;
+  --reader-bg:radial-gradient(ellipse at 50% 42%,#765f4a 0%,#4b3a2c 64%,#2e2219 100%);
+  --reader-bg-immersive:radial-gradient(ellipse at 50% 44%,#5e4a38 0%,#382a1f 62%,#1e1610 100%);
+  --reader-bar:rgba(36,27,19,.72);
+  --reader-ink:#f3e9d8;
+  --reader-line:rgba(243,233,216,.18);
+  --reader-btn:rgba(245,237,222,.10);
+  --paper-vignette:rgba(122,94,54,.14);
+  --paper-rim:rgba(128,104,70,.24);
+  --paper-grain:.34;
+  --paper-blend:multiply;
+  --paper-fiber:rgba(116,92,58,.032);
+  --gutter-dark:rgba(42,30,17,.26);
+  --gutter-mid:rgba(56,42,24,.10);
+  --gutter-soft:rgba(56,42,24,.03);
+  --scroll-thumb:rgba(116,92,64,.30);
+  --scroll-thumb-hover:rgba(116,92,64,.52);
+
+  background:var(--desk-bg);
+  color:var(--ink);
+  height:100vh;
+  height:100dvh;
+  overflow:hidden;
+  position:relative;
+  transition:background .5s ease,color .35s ease;
+}
+.app[data-theme=kraft]{
+  --paper:#E9DDC5;
+  --paper-soft:#DFD0B3;
+  --ink:#3b3021;
+  --desk:#d5c4a9;
+  --desk-bg:radial-gradient(ellipse at 50% 18%,#e2d3ba 0%,#d3c1a4 54%,#bfa987 100%);
+  --mast-bg:rgba(222,206,180,.82);
+  --line:#b59e7d;
+  --line-soft:rgba(104,76,42,.26);
+  --accent:#564732;
+  --ledge-top:#a68864;
+  --ledge-front:#7d6041;
+  --ledge-deep:#5c442c;
+  --board:#4c3826;
+  --board-edge:#312216;
+  --reader-bg:radial-gradient(ellipse at 50% 42%,#674f39 0%,#402f21 64%,#271c13 100%);
+  --reader-bg-immersive:radial-gradient(ellipse at 50% 44%,#523e2b 0%,#302217 62%,#1b130c 100%);
+  --paper-vignette:rgba(94,65,28,.19);
+  --paper-rim:rgba(104,74,38,.28);
+  --paper-grain:.44;
+  --paper-fiber:rgba(92,64,30,.045);
+  --gutter-dark:rgba(40,26,11,.30);
+  --gutter-mid:rgba(56,38,18,.12);
+  --gutter-soft:rgba(56,38,18,.04);
+}
+.app[data-theme=night]{
+  --paper:#22201D;
+  --paper-soft:#2A2723;
+  --ink:#dad2c3;
+  --desk:#161412;
+  --desk-bg:radial-gradient(ellipse at 50% 18%,#231f1b 0%,#161412 58%,#0d0c0b 100%);
+  --mast-bg:rgba(22,20,18,.84);
+  --line:#443f37;
+  --line-soft:rgba(224,212,192,.14);
+  --accent:#94aa8d;
+  --accent-ink:#181715;
+  --seal:#d17c66;
+  --muted:#a1988a;
+  --ledge-top:#383129;
+  --ledge-front:#26211b;
+  --ledge-deep:#15120f;
+  --board:#2f2b25;
+  --board-edge:#191714;
+  --reader-bg:radial-gradient(ellipse at 50% 42%,#24201c 0%,#141210 66%,#0a0908 100%);
+  --reader-bg-immersive:radial-gradient(ellipse at 50% 44%,#1c1916 0%,#0f0e0d 62%,#060605 100%);
+  --reader-bar:rgba(18,16,14,.80);
+  --reader-ink:#ded6c7;
+  --reader-line:rgba(222,214,199,.14);
+  --reader-btn:rgba(222,214,199,.08);
+  --paper-vignette:rgba(0,0,0,.40);
+  --paper-rim:rgba(255,244,224,.07);
+  --paper-grain:.16;
+  --paper-blend:soft-light;
+  --paper-fiber:rgba(255,246,228,.02);
+  --gutter-dark:rgba(0,0,0,.52);
+  --gutter-mid:rgba(0,0,0,.24);
+  --gutter-soft:rgba(0,0,0,.09);
+  --scroll-thumb:rgba(210,196,174,.22);
+  --scroll-thumb-hover:rgba(210,196,174,.38);
+  color-scheme:dark;
+}
+.app[data-theme=white]{
+  --paper:#F9F8F5;
+  --paper-soft:#F0EEE9;
+  --ink:#262825;
+  --desk:#e4e0d8;
+  --desk-bg:radial-gradient(ellipse at 50% 18%,#efece6 0%,#e3dfd7 54%,#d3cec4 100%);
+  --mast-bg:rgba(245,243,238,.82);
+  --line:#c4bdb3;
+  --line-soft:rgba(100,94,86,.20);
+  --accent:#3d5044;
+  --ledge-top:#bbb2a5;
+  --ledge-front:#938a7d;
+  --ledge-deep:#6f675c;
+  --board:#46403a;
+  --board-edge:#2e2a26;
+  --reader-bg:radial-gradient(ellipse at 50% 42%,#685e55 0%,#453e38 66%,#2d2824 100%);
+  --reader-bg-immersive:radial-gradient(ellipse at 50% 44%,#544c45 0%,#352f2a 62%,#201c19 100%);
+  --paper-vignette:rgba(85,82,76,.07);
+  --paper-rim:rgba(110,108,102,.18);
+  --paper-grain:.20;
+  --paper-fiber:rgba(90,88,82,.018);
+  --gutter-dark:rgba(28,28,26,.20);
+  --gutter-mid:rgba(38,38,35,.08);
+  --gutter-soft:rgba(38,38,35,.025);
+}
+
+/* Ambient fine paper-room film grain */
+.app::after{
+  content:"";position:absolute;inset:0;z-index:18;pointer-events:none;opacity:.042;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath filter='url(%23n)' opacity='.85' d='M0 0h160v160H0z'/%3E%3C/svg%3E");
+}
+
+/* ==========================================================================
+   Shared Stationery Controls (Buttons & Selects)
+   ========================================================================== */
+.app button:not(.volume,.edge,.fold,.entry),
+.app select{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:var(--paper);
+  color:var(--ink);
+  padding:7px 13px;
+  font-size:13.5px;
+  box-shadow:0 1px 2px rgba(42,30,18,.06),inset 0 1px 0 rgba(255,255,255,.35);
+  transition:background .22s ease,border-color .22s ease,transform .22s cubic-bezier(.22,1,.36,1),box-shadow .22s ease;
+}
+.app button:not(.volume,.edge,.fold,.entry):hover:not(:disabled),
+.app select:hover{
+  background:var(--paper-soft);
+  border-color:color-mix(in srgb,var(--line) 65%,var(--ink));
+  box-shadow:0 3px 8px rgba(42,30,18,.10);
+}
+.app button:not(.volume,.edge,.fold,.entry):active:not(:disabled){
+  transform:translateY(1px) scale(.985);
+}
+.app button.primary{
+  background:var(--accent);
+  color:var(--accent-ink);
+  border-color:var(--accent);
+  box-shadow:0 3px 10px rgba(34,48,35,.22),inset 0 1px 0 rgba(255,255,255,.16);
+}
+.app button.primary:hover:not(:disabled){
+  background:color-mix(in srgb,var(--accent) 88%,#000);
+  border-color:color-mix(in srgb,var(--accent) 88%,#000);
+  box-shadow:0 6px 16px rgba(34,48,35,.28);
+  transform:translateY(-1px);
+}
+.app select{
+  appearance:none;
+  padding-right:30px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236d6152' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 10px center;
+}
+.app[data-theme=night] select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b5ab9a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+
+/* ==========================================================================
+   Masthead (Top Study Bar)
+   ========================================================================== */
+.mast{
+  height:62px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:0 clamp(18px,5vw,78px);
+  border-bottom:1px solid var(--line-soft);
+  background:var(--mast-bg);
+  backdrop-filter:blur(10px);
+  position:relative;z-index:5;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{
+  width:32px;height:32px;border-radius:8px;
+  display:grid;place-items:center;
+  background:color-mix(in srgb,var(--accent) 13%,var(--paper));
+  border:1px solid var(--line-soft);
+  color:var(--accent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4);
+}
+.brand-name{
+  font:600 21px "Literata",Georgia,"Noto Serif SC","Songti SC",serif;
+  letter-spacing:-.025em;
+  color:var(--ink);
+}
+.brand-sub{
+  font:400 12px var(--font-reading);
+  letter-spacing:.14em;
+  color:var(--muted);
+  padding-left:10px;
+  border-left:1px solid var(--line);
+}
+.import-btn{letter-spacing:.02em}
+
+/* ==========================================================================
+   Bookshelf — Editorial Reading Room & Wooden Ledge
+   ========================================================================== */
+.shelf{
+  max-width:1240px;
+  margin:auto;
+  padding:clamp(28px,5.5vh,62px) clamp(20px,5vw,78px) clamp(24px,4vh,48px);
+  height:calc(100% - 62px);
+  box-sizing:border-box;
+  overflow:auto;
+  animation:fade-rise .5s cubic-bezier(.22,1,.36,1) both;
+}
+.shelf::-webkit-scrollbar{width:7px;height:7px}
+.shelf::-webkit-scrollbar-track{background:transparent}
+.shelf::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:99px}
+.shelf::-webkit-scrollbar-thumb:hover{background:var(--scroll-thumb-hover)}
+
+.shelf-heading{
+  display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:18px;
+}
+.book-meta{min-width:0}
+.kicker{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;letter-spacing:.16em;
+  color:var(--accent);
+  font-weight:500;
+}
+.shelf h1,.completion h2{
+  font:600 clamp(28px,3.8vw,50px)/1.22 var(--font-reading);
+  letter-spacing:.01em;
+  margin:10px 0 8px;
+  color:var(--ink);
+}
+.shelf .author{
+  margin:0;
+  font:400 15px/1.6 var(--font-reading);
+  letter-spacing:.03em;
+  color:var(--muted);
+}
+.shelf p,.panel p,.completion p{color:var(--muted)}
+.shelf label,.options{display:inline-flex;align-items:center;gap:9px;font-size:13px;color:var(--muted)}
+.options{gap:16px;flex-wrap:wrap}
+.shelf select{max-width:230px}
+
+.rule{
+  margin-top:clamp(26px,4.5vh,42px);
+  padding:14px 0;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line-soft);
+  position:relative;
+}
+.rule::before{
+  content:"";position:absolute;left:0;right:0;top:3px;
+  border-top:1px solid var(--line-soft);pointer-events:none;
+}
+.rule h2,.panel h2{
+  margin:0;
+  font:600 15px/1.4 "Songti SC",SimSun,serif;
+  letter-spacing:.12em;
+  color:var(--ink);
+}
+.summary{
+  font-size:13px;
+  letter-spacing:.04em;
+  margin:18px 0 14px;
+  font-variant-numeric:tabular-nums;
+}
+.binding-status{
+  margin:36px 0;
+  font:400 15px "Songti SC",serif;
+  letter-spacing:.08em;
+}
+
+/* Bookshelf Stage & Wooden Plank */
+.shelf-stage{position:relative;padding-top:6px}
+.volumes{
+  position:relative;z-index:1;
+  display:flex;
+  gap:clamp(18px,2.2vw,28px);
+  overflow-x:auto;
+  padding:14px 10px 30px;
+  scroll-snap-type:x proximity;
+  scrollbar-width:auto;
+  scrollbar-color:var(--scroll-thumb) transparent;
+}
+.volumes::-webkit-scrollbar{height:24px}
+.volumes::-webkit-scrollbar-track{
+  background:color-mix(in srgb,var(--line) 32%,transparent);
+  border-radius:99px;
+  border:6px solid transparent;
+  background-clip:content-box;
+  margin-inline:8px;
+}
+.volumes::-webkit-scrollbar-thumb{
+  min-width:64px;
+  background:var(--scroll-thumb);
+  border-radius:99px;
+  border:4px solid transparent;
+  background-clip:content-box;
+  transition:background .2s ease,border-width .2s ease;
+}
+.volumes::-webkit-scrollbar-thumb:hover,
+.volumes::-webkit-scrollbar-thumb:active{
+  background:var(--scroll-thumb-hover);
+  border-width:2px;
+}
+
+.shelf-plank{
+  position:absolute;
+  left:-6px;right:-6px;bottom:34px;z-index:0;
+  height:14px;
+  border-radius:4px 4px 6px 6px;
+  background:linear-gradient(180deg,var(--ledge-top) 0%,var(--ledge-front) 58%,var(--ledge-deep) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,248,234,.28),
+    0 8px 18px rgba(42,28,14,.20),
+    0 2px 4px rgba(42,28,14,.18);
+  pointer-events:none;
+}
+
+/* Clothbound Pocket Volume Cards */
+.volume{
+  position:relative;
+  flex:0 0 clamp(158px,15.5vw,196px);
+  height:clamp(214px,31vh,268px);
+  display:flex;align-items:flex-start;flex-direction:column;gap:8px;
+  padding:22px 18px 18px 28px;
+  border:0;
+  border-radius:3px 6px 6px 3px;
+  scroll-snap-align:start;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.30) 0%,rgba(0,0,0,.08) 4%,rgba(255,255,255,.16) 5.5%,rgba(0,0,0,.12) 7%,transparent 10%),
+    linear-gradient(168deg,rgba(255,250,236,.10) 0%,transparent 42%,rgba(0,0,0,.18) 100%),
+    var(--cover);
+  color:#f7efdc;
+  text-align:left;
+  box-shadow:
+    2px 1px 0 #ebe3d0,
+    4px 2px 0 #d5cbb4,
+    6px 3px 0 #b4a78e,
+    10px 14px 22px rgba(36,24,12,.26),
+    inset 0 1px 0 rgba(255,248,232,.18);
+  transition:transform .38s cubic-bezier(.22,1,.36,1),box-shadow .38s cubic-bezier(.22,1,.36,1),filter .3s ease;
+  overflow:hidden;
+}
+/* Fine linen bookcloth texture */
+.volume::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23c)'/%3E%3C/svg%3E");
+}
+/* Foil-stamped inner cover frame */
+.volume::after{
+  content:"";position:absolute;inset:9px 9px 9px 19px;pointer-events:none;
+  border:1px solid rgba(248,236,208,.20);
+  border-radius:1px 3px 3px 1px;
+}
+.volume:hover{
+  transform:translateY(-8px) rotate(-.5deg);
+  box-shadow:
+    2px 2px 0 #ebe3d0,
+    4px 4px 0 #d5cbb4,
+    6px 6px 0 #b4a78e,
+    14px 22px 30px rgba(36,24,12,.34),
+    inset 0 1px 0 rgba(255,248,232,.24);
+}
+.volume:active{
+  transform:translateY(-3px) scale(.99);
+}
+.tone-0{--cover:#3f5544}
+.tone-1{--cover:#8f533f}
+.tone-2{--cover:#4a5d70}
+.tone-3{--cover:#6d5c3d}
+
+.volume-number{
+  font-size:11px;
+  letter-spacing:.16em;
+  opacity:.82;
+  font-variant-numeric:tabular-nums;
+}
+.volume strong{
+  font:600 20px/1.52 var(--font-reading);
+  letter-spacing:.02em;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+  overflow:hidden;
+  text-shadow:0 1px 2px rgba(0,0,0,.18);
+}
+.bookline{
+  margin-top:auto;
+  width:100%;
+  border-top:1px solid rgba(248,238,214,.34);
+}
+.volume-pages{
+  font-size:11.5px;
+  opacity:.82;
+  font-variant-numeric:tabular-nums;
+}
+.volume small{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:12px;
+  letter-spacing:.03em;
+  color:#f9edd2;
+  opacity:.92;
+  transition:transform .28s ease;
+}
+.volume:hover small{transform:translateX(2px)}
+
+.stamp,.seal{
+  display:inline-flex;align-items:center;gap:5px;
+  border:2px double currentColor;
+  border-radius:3px;
+  padding:2px 8px;
+  transform:rotate(-6deg);
+  font-family:"Songti SC",SimSun,serif;
+  letter-spacing:.12em;
+}
+.volume .stamp{
+  font-size:12px;
+  color:#f6d9b6;
+  background:rgba(162,72,52,.22);
+  box-shadow:0 0 0 1px rgba(246,217,182,.15);
+}
+
+/* ==========================================================================
+   Empty Bookshelf Sanctuary
+   ========================================================================== */
+.empty{
+  display:grid;place-items:center;
+  text-align:center;
+}
+.empty-card{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  max-width:460px;width:100%;
+  padding:clamp(28px,5vh,48px) clamp(24px,4vw,44px);
+  border-radius:14px;
+  background:color-mix(in srgb,var(--paper) 74%,transparent);
+  border:1px solid var(--line-soft);
+  box-shadow:0 18px 46px rgba(48,34,18,.10),inset 0 0 0 6px color-mix(in srgb,var(--paper) 50%,transparent);
+}
+.empty-art{
+  position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  width:116px;height:154px;margin-bottom:8px;
+  color:#efe2c2;
+  border-radius:3px 8px 8px 3px;
+  transform:rotate(-6deg);
+  background:
+    linear-gradient(90deg,#233a2c 0%,#233a2c 5%,#a5ad8c 6%,#466047 9%,#4a654a 85%,#3b513b 100%);
+  box-shadow:
+    3px 2px 0 #e6decb,
+    5px 4px 0 #c6bc9f,
+    12px 16px 26px rgba(34,42,28,.24);
+  transition:transform .5s cubic-bezier(.22,1,.36,1);
+}
+.empty-card:hover .empty-art{transform:rotate(-3deg) translateY(-4px)}
+.empty-art-band{width:46px;height:1px;background:rgba(239,226,194,.45)}
+.empty-art-rule{width:54px;height:1px;background:rgba(239,226,194,.32)}
+.empty-card h1{margin:2px 0 0;font-size:clamp(28px,3.2vw,38px)}
+.empty-card p{margin:0 0 12px;line-height:1.75;max-width:32ch}
+
+/* ==========================================================================
+   Notices & Drop Veil
+   ========================================================================== */
+.notice,.panel,.annotation,.completion{
+  background:var(--paper);
+  color:var(--ink);
+  border:1px solid var(--line);
+  box-shadow:0 16px 42px rgba(14,9,5,.30),0 2px 6px rgba(14,9,5,.14);
+}
+.notice{
+  position:fixed;z-index:31;bottom:16px;left:16px;
+  max-width:calc(100vw - 32px);
+  padding:12px 14px;border-radius:10px;
+  display:flex;align-items:center;gap:12px;
+  font-size:13.5px;
+  animation:panel-in .3s cubic-bezier(.22,1,.36,1) both;
+}
+.notice button{padding:5px 10px;font-size:12.5px}
+
+.dropveil,.curtain{position:fixed;inset:0;z-index:30;display:grid;place-items:center}
+.dropveil{
+  pointer-events:none;
+  background:rgba(46,36,26,.48);
+  backdrop-filter:blur(6px);
+  animation:fade-in .22s ease both;
+}
+.dropveil-card{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  padding:36px 52px;border-radius:14px;
+  background:var(--paper);color:var(--ink);
+  border:2px dashed var(--accent);
+  box-shadow:0 24px 60px rgba(18,12,6,.36);
+}
+.dropveil-card svg{color:var(--accent)}
+.dropveil-card strong{font:600 22px "Songti SC",serif;letter-spacing:.06em}
+.dropveil-card span{font-size:13.5px;color:var(--muted)}
+
+/* ==========================================================================
+   Reading Sanctuary (Desk, Hardcover Spread & Tactile Paper)
+   ========================================================================== */
+.reader{
+  position:absolute;inset:0;z-index:10;
+  background:var(--reader-bg);
+  display:grid;grid-template-rows:56px minmax(0,1fr) 66px;
+  transition:background .45s ease;
+  animation:fade-in .38s ease both;
+}
+.reader.immersive{
+  grid-template-rows:minmax(0,1fr);
+  background:var(--reader-bg-immersive);
+}
+.reader.immersive .reader-tools,
+.reader.immersive .reader-foot{display:none}
+
+.reader-tools{
+  height:auto;
+  display:flex;align-items:center;gap:8px;
+  padding:0 clamp(12px,3vw,48px);
+  background:var(--reader-bar);
+  color:var(--reader-ink);
+  border-bottom:1px solid var(--reader-line);
+  backdrop-filter:blur(10px);
+}
+.reader-tools strong{
+  flex:1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  font:500 16px var(--font-reading);
+  letter-spacing:.06em;
+  color:var(--reader-ink);
+  margin-left:6px;
+}
+.app .reader-tools button{
+  background:var(--reader-btn);
+  color:var(--reader-ink);
+  border-color:var(--reader-line);
+  box-shadow:none;
+  padding:7px 11px;
+}
+.app .reader-tools button:hover:not(:disabled){
+  background:rgba(245,237,222,.20);
+  border-color:rgba(245,237,222,.32);
+}
+.app .reader-tools button[aria-expanded=true]{
+  background:rgba(245,237,222,.24);
+  border-color:rgba(245,237,222,.40);
+}
+
+.immersive-hud{
+  position:fixed;top:16px;left:50%;z-index:25;
+  display:flex;align-items:center;gap:12px;
+  padding:6px 10px 6px 16px;
+  border-radius:999px;
+  border:1px solid var(--reader-line);
+  background:var(--reader-bar);
+  color:var(--reader-ink);
+  backdrop-filter:blur(12px);
+  box-shadow:0 12px 32px rgba(10,6,3,.40);
+  opacity:0;pointer-events:none;
+  transform:translateX(-50%) translateY(-8px);
+  transition:opacity .32s ease,transform .32s cubic-bezier(.22,1,.36,1);
+  font-size:12px;white-space:nowrap;
+}
+.immersive-hud.visible{opacity:.96;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.immersive-hud .dnd-badge{display:inline-flex;align-items:center;gap:5px;color:#b8d1ab;font-weight:500}
+.immersive-hud .hud-page{color:rgba(242,232,214,.78);font-variant-numeric:tabular-nums}
+.app .immersive-hud button{
+  padding:4px 11px;font-size:12px;border-radius:999px;
+  background:var(--reader-btn);color:var(--reader-ink);border-color:var(--reader-line);box-shadow:none;
+}
+
+.spread-wrap{display:grid;place-items:center;min-height:0}
+/* Hardcover binding board subtly peeking around open pages */
+.spread-frame{
+  position:relative;
+  padding:4px 5px 6px;
+  border-radius:5px;
+  background:linear-gradient(180deg,var(--board) 0%,var(--board-edge) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,244,224,.14),
+    0 8px 18px rgba(10,6,3,.34),
+    0 24px 52px rgba(10,6,3,.44),
+    0 42px 84px rgba(8,4,2,.28);
+}
+.spread{
+  display:flex;position:relative;isolation:isolate;
+  perspective:2400px;
+  border-radius:2px;
+}
+.spread::before,.spread::after{
+  content:"";position:absolute;top:.9%;bottom:.4%;z-index:-1;
+  background:repeating-linear-gradient(90deg,#9b917d 0 1px,#eae3d3 1px 2px,#cac0aa 2px 3px);
+  transition:width .28s ease;
+  box-shadow:0 4px 10px rgba(12,8,4,.32);
+}
+.app[data-theme=night] .spread::before,.app[data-theme=night] .spread::after{
+  background:repeating-linear-gradient(90deg,#2c2924 0 1px,#46423a 1px 2px,#36332c 2px 3px);
+}
+.spread::before{right:100%;width:var(--left-stack);border-radius:2px 0 0 2px}
+.spread::after{left:100%;width:var(--right-stack);border-radius:0 2px 2px 0}
+
+/* Tactile embossed book paper */
+.sheet,.turn-face{
+  box-shadow:inset 0 0 42px var(--paper-vignette),inset 0 0 0 1px var(--paper-rim);
+}
+.sheet::after,.turn-face::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  opacity:var(--paper-grain);mix-blend-mode:var(--paper-blend);
+  background-image:
+    repeating-linear-gradient(0deg,transparent 0 21px,var(--paper-fiber) 21px 22px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.04 .12' numOctaves='5' stitchTiles='stitch' result='n'/%3E%3CfeDiffuseLighting in='n' lighting-color='%23fff8ec' surfaceScale='1.65' result='l'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+.sheet>header,.sheet>footer,.turn-face>header,.turn-face>footer{
+  overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+  color:var(--muted);
+  font:12px/22px var(--font-reading);
+  letter-spacing:.06em;
+}
+.sheet>footer,.turn-face>footer{text-align:center;font-variant-numeric:tabular-nums}
+
+@media(min-width:840px){
+  .spread>section.sheet:first-of-type,.leaf.turn-underlay.left,.spread-turn.next .leaf.turn-back,.spread-turn.back .leaf.turn-front{
+    background:linear-gradient(90deg,transparent 84%,var(--gutter-soft) 91%,var(--gutter-mid) 96.5%,var(--gutter-dark)),var(--paper);
+  }
+  .spread>section.sheet:last-of-type,.leaf.turn-underlay.right,.spread-turn.next .leaf.turn-front,.spread-turn.back .leaf.turn-back{
+    background:linear-gradient(90deg,var(--gutter-dark),var(--gutter-mid) 3.5%,var(--gutter-soft) 9%,transparent 16%),var(--paper);
+  }
+}
+
+/* ==========================================================================
+   Silky 3D Page-Turn Animation
+   ========================================================================== */
+.turn-overlay{position:absolute;inset:0;z-index:6;pointer-events:none;perspective:2400px}
+.leaf.turn-underlay{position:absolute;top:0;z-index:1;margin:0}
+.leaf.turn-underlay.left{left:0}.leaf.turn-underlay.right{right:0}
+.turn-leaf{position:absolute;top:0;z-index:3;transform-style:preserve-3d;will-change:transform}
+.leaf.turn-front,.leaf.turn-back{position:absolute;inset:0;width:100%;height:100%;margin:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.leaf.turn-back{transform:rotateY(180deg)}
+.leaf.turn-front::before,.leaf.turn-back::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0}
+
+.spread-turn.next .turn-leaf{right:0;transform-origin:left center;animation:flip-spread-next .62s cubic-bezier(.32,.06,.22,1) forwards}
+.spread-turn.back .turn-leaf{left:0;transform-origin:right center;animation:flip-spread-back .62s cubic-bezier(.32,.06,.22,1) forwards}
+.spread-turn.next .leaf.turn-front::before{background:linear-gradient(90deg,rgba(26,18,10,.22),rgba(255,248,234,.14) 24%,rgba(26,18,10,.30) 76%,rgba(26,18,10,.14));animation:shade-out .62s ease-in-out forwards}
+.spread-turn.next .leaf.turn-back::before{background:linear-gradient(90deg,rgba(26,18,10,.14),rgba(26,18,10,.28) 26%,rgba(255,248,234,.12) 76%,rgba(26,18,10,.20));animation:shade-in .62s ease-in-out forwards}
+.spread-turn.back .leaf.turn-front::before{background:linear-gradient(90deg,rgba(26,18,10,.14),rgba(26,18,10,.30) 24%,rgba(255,248,234,.14) 76%,rgba(26,18,10,.22));animation:shade-out .62s ease-in-out forwards}
+.spread-turn.back .leaf.turn-back::before{background:linear-gradient(90deg,rgba(26,18,10,.20),rgba(255,248,234,.12) 24%,rgba(26,18,10,.28) 74%,rgba(26,18,10,.14));animation:shade-in .62s ease-in-out forwards}
+.spread-turn::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:58px;transform:translateX(-50%);z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,rgba(18,12,6,.32),transparent 72%);opacity:0;animation:spine-pulse .62s ease-in-out forwards}
+
+.single-turn{perspective:1800px}
+.single-turn.next .turn-leaf{left:0;transform-origin:left center;animation:flip-single-next .48s cubic-bezier(.32,.06,.22,1) forwards}
+.single-turn.back .turn-leaf{left:0;transform-origin:left center;animation:flip-single-back .48s cubic-bezier(.32,.06,.22,1) forwards}
+.single-turn.next .leaf.turn-front::before{background:linear-gradient(90deg,rgba(24,18,12,.20),rgba(255,248,234,.10) 45%,rgba(24,18,12,.22));animation:shade-out .48s ease-out forwards}
+.single-turn.back .leaf.turn-front::before{background:linear-gradient(90deg,rgba(24,18,12,.20),rgba(255,248,234,.10) 45%,rgba(24,18,12,.22));animation:shade-in .48s ease-out forwards}
+
+@keyframes flip-spread-next{
+  0%{transform:rotateY(0deg);box-shadow:0 0 0 rgba(18,11,5,0)}
+  20%{box-shadow:-12px 10px 26px rgba(18,11,5,.20)}
+  50%{transform:rotateY(-90deg);box-shadow:-4px 16px 34px rgba(18,11,5,.30)}
+  80%{box-shadow:12px 10px 26px rgba(18,11,5,.18)}
+  100%{transform:rotateY(-180deg);box-shadow:0 0 0 rgba(18,11,5,0)}
+}
+@keyframes flip-spread-back{
+  0%{transform:rotateY(0deg);box-shadow:0 0 0 rgba(18,11,5,0)}
+  20%{box-shadow:12px 10px 26px rgba(18,11,5,.20)}
+  50%{transform:rotateY(90deg);box-shadow:4px 16px 34px rgba(18,11,5,.30)}
+  80%{box-shadow:-12px 10px 26px rgba(18,11,5,.18)}
+  100%{transform:rotateY(180deg);box-shadow:0 0 0 rgba(18,11,5,0)}
+}
+@keyframes flip-single-next{
+  0%{transform:rotateY(0deg) translateX(0);opacity:1;box-shadow:0 0 0 rgba(18,11,5,0)}
+  50%{transform:rotateY(-52deg) translateX(-10%);opacity:.95;box-shadow:12px 12px 28px rgba(18,11,5,.24)}
+  100%{transform:rotateY(-92deg) translateX(-20%);opacity:0;box-shadow:0 0 0 rgba(18,11,5,0)}
+}
+@keyframes flip-single-back{
+  0%{transform:rotateY(-74deg) translateX(-16%);opacity:.18;box-shadow:14px 12px 28px rgba(18,11,5,.22)}
+  100%{transform:rotateY(0deg) translateX(0);opacity:1;box-shadow:0 0 0 rgba(18,11,5,0)}
+}
+@keyframes shade-out{0%{opacity:0}46%{opacity:.72}50%{opacity:0}100%{opacity:0}}
+@keyframes shade-in{0%{opacity:0}50%{opacity:0}54%{opacity:.68}100%{opacity:0}}
+@keyframes spine-pulse{0%{opacity:0}50%{opacity:1}100%{opacity:0}}
+
+/* Edge Click Zones & Dog-Ear Bookmark */
+.edge{position:absolute;top:12%;bottom:10%;width:clamp(14px,2vw,28px);background:transparent;border:0;z-index:2}.edge.prev{left:0}.edge.next{right:0}
+.fold{position:absolute;right:0;top:0;width:34px;height:34px;z-index:3;border:0;background:transparent;transition:filter .24s ease;filter:drop-shadow(-2px 3px 2px rgba(28,20,10,.20))}
+.fold::before{content:"";display:block;position:absolute;right:0;top:0;width:15px;height:15px;transition:width .28s cubic-bezier(.22,1,.36,1),height .28s cubic-bezier(.22,1,.36,1);clip-path:polygon(0 0,100% 0,100% 100%);background:linear-gradient(45deg,#8d795b 0%,#dfd0b0 60%,#f5ecd8 100%)}
+.fold:hover::before,.fold.folded::before{width:32px;height:32px}
+.fold.folded::before{background:linear-gradient(45deg,#a25838 0%,#d79b68 55%,#f2d8b2 100%)}
+
+/* Reader Footer Pill */
+.reader-foot{
+  justify-self:center;align-self:center;
+  display:flex;align-items:center;gap:4px;
+  padding:4px 8px;
+  border:1px solid var(--reader-line);
+  border-radius:999px;
+  background:var(--reader-bar);
+  color:var(--reader-ink);
+  backdrop-filter:blur(10px);
+  box-shadow:0 8px 24px rgba(10,6,3,.30);
+}
+.reader-foot span{padding-inline:8px;font-size:12.5px;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.app .reader-foot button{
+  border:0;border-radius:100%;padding:6px 8px;
+  background:transparent;color:var(--reader-ink);box-shadow:none;
+}
+.app .reader-foot button:hover:not(:disabled){background:var(--reader-btn)}
+.reader-foot svg{width:17px;height:17px}
+
+/* ==========================================================================
+   Stationery Drawers, Sound Mixer & Annotations
+   ========================================================================== */
+.panel,.annotation{position:absolute;z-index:20;padding:18px;border-radius:12px}
+.panel{
+  top:64px;right:16px;
+  width:min(336px,calc(100% - 32px));
+  max-height:calc(100% - 92px);
+  overflow:auto;
+  animation:panel-in .28s cubic-bezier(.22,1,.36,1) both;
+}
+.panel::-webkit-scrollbar{width:6px}
+.panel::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:99px}
+.panel header,.annotation div,.mixer label{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.panel header{
+  margin-bottom:14px;padding-bottom:10px;
+  border-bottom:1px solid var(--line-soft);
+}
+.panel header button{padding:5px;border-radius:6px}
+.panel .options{flex-wrap:wrap;gap:12px}
+.panel .empty-hint{margin:8px 0;font-size:13.5px;line-height:1.7}
+
+.panel.mixer{
+  bottom:70px;top:auto;right:50%;
+  transform:translateX(50%);
+  width:min(368px,calc(100% - 28px));
+  animation:mixer-in .3s cubic-bezier(.22,1,.36,1) both;
+}
+.mixer-group{
+  padding:10px 0;
+  border-bottom:1px solid var(--line-soft);
+}
+.mixer-group:first-of-type{padding-top:2px}
+.mixer-group:last-of-type{border-bottom:0;padding-bottom:12px}
+.mixer label{margin-bottom:8px;font-size:13.5px;color:var(--ink)}
+.mixer label:last-child{margin-bottom:0}
+.app .mixer select{max-width:196px;padding:5px 28px 5px 9px;font-size:12.5px}
+.mixer input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:168px;height:4px;border-radius:99px;
+  background:var(--line);
+  accent-color:var(--accent);
+  cursor:pointer;
+}
+.mixer input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:14px;height:14px;border-radius:50%;
+  background:var(--accent);
+  border:2px solid var(--paper);
+  box-shadow:0 1px 4px rgba(24,18,10,.30);
+  transition:transform .18s ease;
+}
+.mixer input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.18)}
+.mixer-mute{width:100%;margin-top:4px}
+
+.entry{
+  display:block;width:100%;
+  padding:10px 8px;
+  border:0;border-bottom:1px solid var(--line-soft);
+  border-radius:6px;
+  background:transparent;color:var(--ink);
+  text-align:left;font-size:14px;line-height:1.55;
+  overflow-wrap:anywhere;
+  transition:background .2s ease,padding-left .22s ease;
+}
+.entry:hover{background:color-mix(in srgb,var(--accent) 8%,transparent);padding-left:12px}
+.entry:last-child{border-bottom:0}
+.note-quote{
+  display:block;
+  font-family:var(--font-reading);
+  border-left:2px solid var(--accent);
+  padding-left:9px;
+  color:var(--ink);
+}
+.entry small{display:block;margin-top:5px;color:var(--muted);font-size:12.5px}
+
+/* Bouncy Q弹 Annotation Popover */
+.annotation{
+  position:fixed;
+  width:min(278px,94vw);
+  padding:11px;
+  border-radius:12px;
+  transform-origin:24% 0%;
+  animation:annotation-pop .36s cubic-bezier(.22,1,.36,1) both;
+  will-change:transform,opacity;
+}
+.annotation input{
+  width:100%;background:var(--paper-soft);
+  border:1px solid var(--line);border-radius:7px;
+  padding:7px 9px;margin-bottom:9px;box-sizing:border-box;
+  font-size:13.5px;color:var(--ink);
+}
+.annotation div{gap:6px}
+.app .annotation button{
+  padding:6px 9px;font-size:13px;gap:4px;white-space:nowrap;
+  transition:transform .16s cubic-bezier(.34,1.56,.64,1),background .15s ease;
+}
+.app .annotation button:hover:not(:disabled){background:rgba(128,104,70,.10)}
+.app .annotation button:active:not(:disabled){transform:scale(.92)}
+
+.mark{background:rgba(229,193,92,.44);border-radius:2px}
+.line{text-decoration:underline;text-decoration-color:#a56c44;text-decoration-thickness:1.5px;text-underline-offset:4px}
+[data-notes]{cursor:pointer;transition:background .18s ease}
+[data-notes]:hover{background:rgba(229,193,92,.62)}
+
+/* Floating Margin Note Card (Outside Book Area) */
+.margin-note{
+  position:fixed;z-index:22;
+  padding:12px;border-radius:12px;
+  background:var(--paper);color:var(--ink);
+  border:1px solid var(--line);
+  box-shadow:0 16px 40px rgba(14,9,5,.36),0 2px 6px rgba(14,9,5,.16);
+  box-sizing:border-box;
+  transform-origin:top center;
+  animation:annotation-pop .32s cubic-bezier(.22,1,.36,1) both;
+}
+.margin-note.left{transform-origin:right top}
+.margin-note.right{transform-origin:left top}
+.margin-note header{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  margin-bottom:8px;padding-bottom:6px;
+  border-bottom:1px solid var(--line-soft);
+  font:600 12.5px "Songti SC",SimSun,serif;
+  letter-spacing:.1em;color:var(--accent);
+}
+.app .margin-note header button{padding:3px;border-radius:6px;border-color:transparent;background:transparent;box-shadow:none}
+.margin-quote{
+  margin:0 0 8px;
+  padding-left:8px;
+  border-left:2px solid var(--accent);
+  font:400 12.5px/1.5 var(--font-reading);
+  color:var(--muted);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.margin-note textarea{
+  width:100%;box-sizing:border-box;resize:vertical;min-height:62px;max-height:160px;
+  background:var(--paper-soft);color:var(--ink);
+  border:1px solid var(--line);border-radius:7px;
+  padding:7px 8px;margin-bottom:8px;
+  font-size:13px;line-height:1.55;
+}
+.margin-actions{display:flex;align-items:center;gap:6px}
+.margin-actions .primary{flex:1}
+.app .margin-actions button{padding:5px 9px;font-size:12.5px;gap:4px}
+
+/* ==========================================================================
+   Volume Completion Letterpress Ex-Libris Modal
+   ========================================================================== */
+.curtain{
+  background:rgba(20,15,10,.56);
+  backdrop-filter:blur(5px);
+  animation:fade-in .26s ease both;
+}
+.completion{
+  position:relative;
+  padding:34px 38px 30px;
+  min-width:min(320px,88vw);
+  text-align:center;
+  border-radius:12px;
+  animation:modal-in .38s cubic-bezier(.22,1,.36,1) both;
+}
+.completion::before{
+  content:"";position:absolute;inset:9px;
+  border:1px solid var(--line-soft);
+  border-radius:7px;pointer-events:none;
+}
+.seal{
+  color:var(--seal);
+  font-size:19px;
+  padding:4px 12px;
+  animation:seal-press .44s cubic-bezier(.22,1,.36,1) .08s both;
+}
+.completion h2{margin:16px 0 6px;font-size:clamp(26px,3vw,34px)}
+.completion p{margin:0 0 24px;font:400 15px "Songti SC",serif;letter-spacing:.04em}
+.completion-actions{display:flex;justify-content:center;gap:10px}
+
+/* ==========================================================================
+   Keyframes & Responsive Rules
+   ========================================================================== */
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+@keyframes fade-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes panel-in{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes mixer-in{from{opacity:0;transform:translateX(50%) translateY(8px) scale(.98)}to{opacity:1;transform:translateX(50%) translateY(0) scale(1)}}
+@keyframes modal-in{from{opacity:0;transform:translateY(10px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes seal-press{
+  0%{opacity:0;transform:rotate(-11deg) scale(1.25)}
+  68%{opacity:1;transform:rotate(-5deg) scale(.96)}
+  100%{opacity:1;transform:rotate(-6deg) scale(1)}
+}
+@keyframes annotation-pop{
+  0%{opacity:0;transform:translateY(-8px) scale(.82)}
+  56%{opacity:1;transform:translateY(2px) scale(1.045)}
+  78%{transform:translateY(-1px) scale(.985)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+@media(max-width:640px){
+  .brand-sub{display:none}
+  .reader-tools{gap:4px}
+  .app .reader-tools button{padding:7px}
+  .rule{margin-top:22px}
+  .options{gap:8px}
+  .shelf-heading select{max-width:170px}
+  .spread-frame{padding:2px 3px 4px}
+}
+@media(max-height:479px){
+  .reader{grid-template-rows:40px minmax(0,1fr) 44px}
+  .panel{top:44px}
+  .panel.mixer{bottom:46px}
+  .empty-art{display:none}
+  .spread-frame{padding:2px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}

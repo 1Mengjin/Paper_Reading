@@ -1,0 +1,9 @@
+.leaf{box-sizing:border-box;display:grid;grid-template-rows:22px minmax(0,1fr) 22px;gap:clamp(6px,1.7vh,16px);padding:clamp(10px,3vh,32px) clamp(21px,3.5vw,58px);min-width:0;position:relative;background:var(--paper,#f5f0e6);color:var(--ink,#35362c)}
+.page-text{min-width:0;min-height:0;font-family:var(--font-reading,"Literata","Noto Serif SC","Songti SC","SimSun",serif);font-size:clamp(16px,1.35vw,20px);line-height:1.84;letter-spacing:.025em;overflow-wrap:anywhere;white-space:pre-line;display:flow-root}
+.page-text>:where(*){box-sizing:border-box;margin:0;padding:0}
+.page-text>*+*{margin-top:.72em}
+.page-text h1,.page-text h2,.page-text h3,.page-text h4{line-height:1.4;font-weight:650;text-wrap:wrap}
+.page-text h1{font-size:1.72em}.page-text h2{font-size:1.45em}.page-text h3{font-size:1.26em}.page-text h4{font-size:1.1em}
+.page-text blockquote{border-left:2px solid #908b70;padding-left:1em}
+.page-text img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;margin-inline:auto}
+.measuring{position:fixed!important;left:-100000px;top:0;visibility:hidden;pointer-events:none}

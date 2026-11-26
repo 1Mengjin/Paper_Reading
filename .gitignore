@@ -2,3 +2,7 @@ node_modules/
 dist/
 test-results/
 playwright-report/
+mobile-android/android/.gradle/
+mobile-android/android/build/
+mobile-android/android/app/build/
+mobile-android/android/local.properties

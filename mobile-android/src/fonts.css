@@ -1,0 +1,16 @@
+@import '@fontsource/literata/400.css';
+@import '@fontsource/literata/600.css';
+@import '@fontsource/literata/400-italic.css';
+@import '@fontsource/noto-serif-sc/400.css';
+@import '@fontsource/noto-serif-sc/600.css';
+@import 'lxgw-wenkai-screen-webfont/lxgwwenkaiscreen.css';
+
+:root {
+  --font-serif: "Literata", "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --font-kai: "Literata", "LXGW WenKai Screen", "Kaiti SC", "STKaiti", serif;
+  --font-reading: var(--font-serif);
+}
+
+:root[data-font="kai"] {
+  --font-reading: var(--font-kai);
+}

@@ -3,12 +3,15 @@ on: [push, pull_request]
 permissions:
   contents: read
 jobs:
-  verify:
+  verify-pc:
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: pc
     env:
       PAPERPOCKET_BROWSER: chrome
     timeout-minutes: 10
@@ -24,7 +27,24 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: runner.os == 'Windows'
         with:
-          name: PaperPocket-offline
+          name: PaperPocket-PC-offline
           path: |
-            dist/
-            start.mjs
+            pc/dist/
+            pc/start.mjs
+
+  verify-mobile:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile-android
+    env:
+      PAPERPOCKET_BROWSER: chrome
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npm run build
+      - run: npm test

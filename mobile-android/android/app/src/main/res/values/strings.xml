@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PaperPocket</string>
+    <string name="title_activity_main">PaperPocket</string>
+    <string name="package_name">com.paperpocket.reader</string>
+    <string name="custom_url_scheme">com.paperpocket.reader</string>
+</resources>
